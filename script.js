@@ -1,5 +1,9 @@
-const input = document.querySelector("#amount")
+import Expense from './classes/expense.js'
 
+const input = document.querySelector("#amount")
+const nome = document.querySelector("#expense")
+const categoria = document.querySelector("#category")
+const form = document.querySelector("form")
 
 
 input.addEventListener("input" ,() => {
@@ -15,5 +19,13 @@ function formatarValor(valor){
         currency: "BRL"
     })
     return valor
+
+}
+
+form.onsubmit = (e) =>{
+    e.preventDefault()
+    console.log("sub")
+    let despesa = new Expense(categoria,input)
+    console.log(despesa)
 
 }
