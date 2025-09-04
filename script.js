@@ -5,6 +5,7 @@ const nome = document.querySelector("#expense")
 const categoria = document.querySelector("#category")
 const form = document.querySelector("form")
 const lista = document.querySelector('ul')
+const qtd = document.querySelector('#qtd')
 
 
 input.addEventListener("input" ,() => {
@@ -25,9 +26,7 @@ function formatarValor(valor){
 
 form.onsubmit = (e) =>{
     e.preventDefault()
-    console.log("sub")
     let despesa = new Expense(categoria,input,nome)
-    console.log(despesa)
     adicionarDespesa(despesa)
 
 }
@@ -70,4 +69,14 @@ function adicionarDespesa(despesa){
 
     lista.append(li)
 
+    atualizarValores(lista)
+
+}
+
+
+function atualizarValores(ul){
+    const elementos = ul.querySelectorAll('li')
+    qtd.innerText = elementos.length
+    
+    
 }
