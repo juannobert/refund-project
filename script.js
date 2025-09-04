@@ -6,7 +6,8 @@ const categoria = document.querySelector("#category")
 const form = document.querySelector("form")
 const lista = document.querySelector('ul')
 const qtd = document.querySelector('#qtd')
-
+const totalTag = document.querySelector('#total')
+let total = 0;
 
 input.addEventListener("input" ,() => {
     let valor = input.value.replace(/\D/g,"") // tira as letras
@@ -55,7 +56,7 @@ function adicionarDespesa(despesa){
     span.classList.add('expense-amount')
     const small = document.createElement('small')
     small.innerText = 'R$'
-    span.innerHTML = despesa.amount
+    span.innerText = despesa.amount
     span.prepend(small)
 
     //Excluir
@@ -64,10 +65,18 @@ function adicionarDespesa(despesa){
     imgRemove.classList.add('remove-icon')
     imgRemove.setAttribute('src','./img/remove.svg')
 
+    imgRemove.addEventListener("click", () =>{
+        let pai = imgRemove.parentNode
+        lista.removeChild(pai)
+        atualizarValores(lista)
+    })
+
 
     li.append(img,div,span,imgRemove)
 
     lista.append(li)
+
+    
 
     atualizarValores(lista)
 
@@ -77,6 +86,13 @@ function adicionarDespesa(despesa){
 function atualizarValores(ul){
     const elementos = ul.querySelectorAll('li')
     qtd.innerText = elementos.length
-    
-    
+
+    total = 0
+    for (let item of elementos){
+        let valor = item.querySelector('.expense-amount').innerText.replace("R$R$","").replace(',','.')
+        total += parseFloat(valor)
+    }
+
+    totalTag.innerHTML = formatarValor(total.toFixed(2))
 }
+
